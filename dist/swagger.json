@@ -12,6 +12,31 @@
     "description": "Starter kit of Nestia"
   },
   "paths": {
+    "/app/users": {
+      "get": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "x-nestia-encrypted": false
+          }
+        },
+        "description": "Maximum call stack size exceeded",
+        "x-nestia-namespace": "app.users.users",
+        "x-nestia-jsDocTags": []
+      }
+    },
     "/bbs/articles/{section}": {
       "patch": {
         "tags": [],
@@ -390,6 +415,230 @@
   },
   "components": {
     "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "@type unit",
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "unit",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "email": {
+            "description": "@format email",
+            "x-typia-metaTags": [
+              {
+                "kind": "format",
+                "value": "email"
+              }
+            ],
+            "x-typia-jsDocTags": [
+              {
+                "name": "format",
+                "text": [
+                  {
+                    "text": "email",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "$ref": "#/components/schemas/JsonValue"
+          },
+          "posts": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "email",
+          "name",
+          "content",
+          "posts"
+        ],
+        "description": "@format email",
+        "x-typia-jsDocTags": []
+      },
+      "JsonValue": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "nullable": true
+          },
+          {
+            "$ref": "#/components/schemas/JsonObject.Nullable"
+          }
+        ]
+      },
+      "JsonObject.Nullable": {
+        "type": "object",
+        "properties": {},
+        "nullable": true,
+        "x-typia-jsDocTags": [],
+        "x-typia-additionalProperties": {
+          "oneOf": [
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/JsonValue"
+              },
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/JsonObject.Nullable"
+            }
+          ],
+          "x-typia-required": false,
+          "x-typia-optional": false
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "boolean",
+              "nullable": true
+            },
+            {
+              "x-typia-required": false,
+              "x-typia-optional": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/JsonValue"
+              },
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/JsonObject.Nullable"
+            }
+          ],
+          "x-typia-required": false,
+          "x-typia-optional": false
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "@type unit",
+            "x-typia-jsDocTags": [
+              {
+                "name": "type",
+                "text": [
+                  {
+                    "text": "unit",
+                    "kind": "text"
+                  }
+                ]
+              }
+            ],
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "number"
+          },
+          "title": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string"
+          },
+          "content": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "string",
+            "nullable": true
+          },
+          "published": {
+            "x-typia-required": true,
+            "x-typia-optional": false,
+            "type": "boolean"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "id",
+          "title",
+          "content",
+          "published"
+        ],
+        "description": "@type unit",
+        "x-typia-jsDocTags": []
+      },
       "IBbsArticle.IRequest": {
         "type": "object",
         "properties": {
